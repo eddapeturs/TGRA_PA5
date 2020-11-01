@@ -17,9 +17,10 @@ class Camera:
         self.center = center
         self.up = up
 
+        self.update_mm()
+
         # self.dir = self.u + self.n
         # self.dir.normalize()
-
 
     def look(self, eye, center, up):
         self.eye = eye                  # Point of origin in coordinate frame (where we should be at)
@@ -32,20 +33,27 @@ class Camera:
         self.center = center
         self.up = up
 
-        # self.dir = self.u + self.n
-        # self.dir.normalize()
+        self.update_mm()
 
+
+    def follow_look(self, camera):
+        self.eye = camera.eye + (camera.n + camera.up)              # Point of origin in coordinate frame (where we should be at)
+        self.n = (self.eye - camera.eye)                            # Should be directed backwards from us
+        self.n.normalize()
+        self.u = camera.up.cross(self.n)
+        self.u.normalize()
+        self.v = self.n.cross(self.u)              
+
+        self.center = camera.center
+        self.up = camera.up
+        self.update_mm()                                            # Used for follow cam and player orientation
 
        # Relative movements to camera
     def slide(self, del_u, del_v, del_n):
         # self.eye += self.u * del_u + self.v * del_v + self.n * del_n
         # tmp_y = self.eye.y
         self.eye += self.u * del_u + self.v * del_v + self.n * del_n
-
-        # self.dir = self.u + self.n
-        # self.dir.normalize()
-        # self.eye.y = tmp_y
-
+        self.update_mm()
 
     def roll(self, angle):
         c = cos(angle)
@@ -63,6 +71,8 @@ class Camera:
         self.n = self.u * -s + self.n * c 
         self.u = tmp_u
 
+        self.update_mm()
+
 
     def pitch(self, angle):
         c = cos(angle)
@@ -72,6 +82,12 @@ class Camera:
         self.v = self.u * -s + self.v * c 
         self.u = tmp_u
 
+    
+    def update_mm(self):
+        self.mm = [ self.u.x, self.v.x, self.n.x, 0,
+                    self.u.y, self.v.y, self.n.y, 0,
+                    self.u.z, self.v.z, self.n.z, 0,
+                    0,  0, 0, 1]
 
     # Takes whatever eye, u, v and n values we have at this current point to build an array
     # Inverse of how we build the model matrix

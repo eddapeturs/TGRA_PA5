@@ -99,7 +99,7 @@ class VerticalWall:
                             ]
         arr = []
         counter = 0
-        print("LEN: ", len(self.normal_array))
+        
         for i in range(0, len(self.position_array), 3):
             arr.extend(self.position_array[i:i+3])
             arr.extend(self.normal_array[i:i+3])
@@ -119,14 +119,16 @@ class VerticalWall:
     #     shader.set_normal_attribute(self.normal_array)
     #     shader.set_uv_attribute(self.uv_array)
 
-    def draw(self, shader):
+    def draw(self, shader, neigh_dict):
         # From the arrays, start from beginning and read the next 4 arrays
         # Read 3 and 3 values together, one vertice means 3 values. 
         # Indices 0, 4 means the indices he has made from our floating point array.
         shader.set_attribute_buffers_with_uv(self.vertex_buffer_id)
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4) # Small side
+        if neigh_dict["neg_z"]:
+            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4) # Small side
         glDrawArrays(GL_TRIANGLE_STRIP, 4, 4) # Long side
-        glDrawArrays(GL_TRIANGLE_STRIP, 8, 4)
+        if neigh_dict["pos_z"]:
+            glDrawArrays(GL_TRIANGLE_STRIP, 8, 4)
         glDrawArrays(GL_TRIANGLE_STRIP, 12, 4)
         glDrawArrays(GL_TRIANGLE_STRIP, 16, 4)
         # glDrawArrays(GL_TRIANGLE_STRIP, 20, 4)
@@ -250,14 +252,16 @@ class HorizontalWall:
     #     shader.set_normal_attribute(self.normal_array)
     #     shader.set_uv_attribute(self.uv_array)
 
-    def draw(self, shader):
+    def draw(self, shader, neigh_dict):
         # From the arrays, start from beginning and read the next 4 arrays
         # Read 3 and 3 values together, one vertice means 3 values. 
         # Indices 0, 4 means the indices he has made from our floating point array.
         shader.set_attribute_buffers_with_uv(self.vertex_buffer_id)
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4) # Small side
-        glDrawArrays(GL_TRIANGLE_STRIP, 4, 4) # Long side
+        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
+        if neigh_dict["pos_x"]:
+            glDrawArrays(GL_TRIANGLE_STRIP, 4, 4)
         glDrawArrays(GL_TRIANGLE_STRIP, 8, 4)
-        glDrawArrays(GL_TRIANGLE_STRIP, 12, 4)
+        if neigh_dict["neg_x"]:
+            glDrawArrays(GL_TRIANGLE_STRIP, 12, 4)
         glDrawArrays(GL_TRIANGLE_STRIP, 16, 4)
         glBindBuffer(GL_ARRAY_BUFFER, 0) # unbinding

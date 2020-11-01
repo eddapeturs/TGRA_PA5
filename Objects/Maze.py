@@ -12,14 +12,37 @@ class Maze:
 
         self.horizontal_line_array = []
         self.vertical_line_array = []
-        self.orb_positions = []
 
+        self.max_coins = 7
+        self.coin_count = 0
+        self.last_deleted_wall = []
+        self.coin_positions = []
+        self.ogre_positions = dict()
         self.generate_new_maze()
-
+        self.find_neighbours()
 
         # For testing:
-        # self.horizontal_line_array = [(7.5, 5.0)]
-        # self.vertical_line_array = [(10.0, 12.5)]
+        # self.horizontal_line_array = []
+        # self.vertical_line_array = []
+
+    def find_neighbours(self):
+        '''Find the nearest neighbours of walls, so that we don't draw unneccessary sides'''
+        self.v_neigh_dict = dict()
+        for item in self.vertical_line_array:
+            self.v_neigh_dict[item] = {
+                "neg_z": (item[0], item[1] - 5.0) not in self.vertical_line_array
+                          and (item[0] + 2.5, item[1] - 2.5) not in self.horizontal_line_array 
+                          and (item[0] - 2.5, item[1] - 2.5) not in self.horizontal_line_array,
+                "pos_z": (item[0], item[1] + 5.0) not in self.vertical_line_array
+                          and (item[0] + 2.5, item[1] + 2.5) not in self.horizontal_line_array 
+                          and (item[0] - 2.5, item[1] + 2.5) not in self.horizontal_line_array,
+            } 
+        self.h_neigh_dict = dict()
+        for item in self.horizontal_line_array:
+            self.h_neigh_dict[item] = {
+                "pos_x": (item[0] + 5.0, item[1]) not in self.horizontal_line_array,
+                "neg_x": (item[0] - 5.0, item[1]) not in self.horizontal_line_array
+            }
 
 
     def get_available_moves(self, x, z):
@@ -80,15 +103,19 @@ class Maze:
         tmp_pos_z = self.pos_z
         if move_to[0] > self.index_pos_x:
             tmp_pos_x += 5.0
+            self.last_deleted_wall = (self.pos_x + 2.5, self.pos_z)
             self.delete_vertical_wall(self.pos_x + 2.5, self.pos_z)
         if move_to[0] < self.index_pos_x:
             tmp_pos_x -= 5.0
+            self.last_deleted_wall = (self.pos_x - 2.5, self.pos_z)
             self.delete_vertical_wall(self.pos_x - 2.5, self.pos_z)
         if move_to[1] > self.index_pos_z:
             tmp_pos_z += 5.0
+            self.last_deleted_wall = (self.pos_x, self.pos_z + 2.5)
             self.delete_horizontal_wall(self.pos_x, self.pos_z + 2.5)
         if move_to[1] < self.index_pos_z:
             tmp_pos_z -= 5.0
+            self.last_deleted_wall = (self.pos_x, self.pos_z - 2.5)
             self.delete_horizontal_wall(self.pos_x, self.pos_z - 2.5)
         self.pos_x = tmp_pos_x
         self.pos_z = tmp_pos_z
@@ -100,10 +127,13 @@ class Maze:
 
     def generate_maze(self):
         avail = self.get_available_moves(self.index_pos_x, self.index_pos_z)
-
         unvisited = self.check_unvisited(self.index_pos_x, self.index_pos_z, avail)
+        # If we come across a dead-end where all surrounding squares have been visited, drop an coin
         if unvisited == []:
-            self.orb_positions.append((self.index_pos_x, self.index_pos_z))
+            if self.coin_count <= self.max_coins:
+                self.coin_positions.append((self.index_pos_x, self.index_pos_z))
+                self.ogre_positions[self.last_deleted_wall] = self.get_ogre_direction(self.last_deleted_wall, (self.index_pos_x, self.index_pos_z))
+                self.coin_count += 1
         while unvisited == []:
             index = self.previously_visited.pop()
             self.move(index)
@@ -135,3 +165,24 @@ class Maze:
         for line in self.visited:
             while False in line:
                 self.generate_maze() 
+
+
+    # Returns actual coordinates from mod position
+    def goc(self, val):
+        return val * 5 + 2.5
+
+    def mod(self, val):
+        return (val - 2.5) / 5
+
+    def get_ogre_direction(self, ogre, coin):
+        '''Get the direction the ogre is facing'''
+        ogre_mod_x = self.mod(ogre[0])
+        ogre_mod_z = self.mod(ogre[1])
+        if ogre_mod_x < coin[0]:
+            return "E"
+        elif ogre_mod_x > coin[0]:
+            return "W"
+        elif ogre_mod_z < coin[1]:
+            return "S"
+        elif ogre_mod_z > coin[1]:
+            return "N"

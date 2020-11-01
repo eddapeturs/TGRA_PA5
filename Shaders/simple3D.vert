@@ -1,5 +1,3 @@
-uniform int u_has_texture;
-
 attribute vec3 a_position; // Vertex position
 attribute vec3 a_normal;	// Vertex normal
 attribute vec2 a_uv; // For texture mapping
@@ -29,8 +27,12 @@ varying vec4 v_color;  //Leave the varying variables alone to begin with
 varying vec4 v_position;
 varying vec4 v_light;
 varying vec4 v_normal;
-varying vec2 v_uv;
 
+uniform int u_has_diffuse;
+uniform int u_has_specular;
+uniform int u_has_normal;
+
+varying vec2 v_uv;
 // varying vec4 v_s;
 // varying vec4 v_h;
 
@@ -46,8 +48,6 @@ void main(void)
 	vec4 position = vec4(a_position.x, a_position.y, a_position.z, 1.0);
 	vec4 normal = vec4(a_normal.x, a_normal.y, a_normal.z, 0.0);
 
-
-
 	// Local coordinated
 	position = u_model_matrix * position;
 	v_position = position;
@@ -55,7 +55,7 @@ void main(void)
 	normal = u_model_matrix * normal; // Maybe normalize this, question about optimization
 	v_normal = normalize(normal);
 
-	if(u_has_texture == 1){
+	if(u_has_diffuse == 1){
 		v_uv = a_uv;
 	}
 

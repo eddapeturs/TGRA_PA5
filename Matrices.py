@@ -60,9 +60,9 @@ class ModelMatrix:
         self.add_transformation(other_matrix)
 
     def add_rotate_y(self, angle):
-        c = cos(angle) # angle in rad
-        s = sin(angle)
-        # c = cos(angle * pi / 180.0) if angle in degree
+        c = cos(angle * pi / 180.0) # if angle in degree
+        # c = cos(angle) # angle in rad
+        s = sin(angle * pi / 180.0)
         other_matrix = [c,  0, s, 0,
                         0,  1, 0, 0,
                         -s, 0, c, 0,
@@ -148,14 +148,6 @@ class ViewMatrix:
         self.v = self.u * -s + self.v * c 
         self.u = tmp_u
 
-    # Look side to side
-    def yaw(self, angle):
-        c = cos(angle)
-        s = sin(angle)
-
-        tmp_u = self.u * c + self.n * s 
-        self.n = self.u * -s + self.n * c 
-        self.u = tmp_u
 
 
     # Look up and down
@@ -256,7 +248,9 @@ class ProjectionMatrix:
 #         pass
 
 #     def get_matrix(self):
-#         return [ 0.45052942369783683,  0.0,  -0.15017647456594563,  0.0,
+#         return [ 0.4505294236
+# 
+# 9783683,  0.0,  -0.15017647456594563,  0.0,
 #                 -0.10435451285616304,  0.5217725642808152,  -0.3130635385684891,  0.0,
 #                 -0.2953940042189954,  -0.5907880084379908,  -0.8861820126569863,  3.082884480118567,
 #                 -0.2672612419124244,  -0.5345224838248488,  -0.8017837257372732,  3.7416573867739413 ]

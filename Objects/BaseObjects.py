@@ -157,7 +157,7 @@ class Sphere:
                     vertex_array.append(sin(stack_angle) * sin(slice_angle))
 
                 vertex_array.append(slice_count / slices)
-                vertex_array.append(stack_count / stack_interval)
+                vertex_array.append(stack_count / stacks)
 
                 for _ in range(2):
                     vertex_array.append(sin(stack_angle + stack_interval) * cos(slice_angle))
@@ -165,7 +165,7 @@ class Sphere:
                     vertex_array.append(sin(stack_angle + stack_interval) * sin(slice_angle))
 
                 vertex_array.append(slice_count / slices)
-                vertex_array.append((stack_count + 1) / stack_interval)
+                vertex_array.append((stack_count + 1) / stacks)
 
                 self.vertex_count += 2
 
@@ -224,10 +224,10 @@ class MeshModel:
 
     def draw(self, shader):
         for mesh_id, mesh_material in self.mesh_materials.items():
-            material = self.materials[mesh_material]
-            shader.set_material_diffuse(material.diffuse)
-            shader.set_material_specular(material.specular)
-            shader.set_material_shininess(material.shininess)
+            # material = self.materials[mesh_material]
+            # shader.set_material_diffuse(material.diffuse)
+            # shader.set_material_specular(material.specular)
+            # shader.set_material_shininess(material.shininess)
             shader.set_attribute_buffers_with_uv(self.vertex_buffer_ids[mesh_id])
             glDrawArrays(GL_TRIANGLES, 0, self.vertex_counts[mesh_id])
             glBindBuffer(GL_ARRAY_BUFFER, 0)

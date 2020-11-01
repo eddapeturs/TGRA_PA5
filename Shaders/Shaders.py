@@ -54,45 +54,36 @@ class Shader3D:
 
         # self.colorLoc               = glGetUniformLocation(self.renderingProgramID, "u_color")
         # Orb property setting
-        self.orb1PosLoc = glGetUniformLocation(self.renderingProgramID, "orb1.position")
-        self.orb1AmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb1.ambient")
-        self.orb1DiffLoc = glGetUniformLocation(self.renderingProgramID, "orb1.diffuse")
-        self.orb1SpecLoc = glGetUniformLocation(self.renderingProgramID, "orb1.specular")
-        self.orb1Constant = glGetUniformLocation(self.renderingProgramID, "orb1.constant")
-        self.orb1Linear = glGetUniformLocation(self.renderingProgramID, "orb1.linear")
-        self.orb1Quadratic = glGetUniformLocation(self.renderingProgramID, "orb1.quadratic")
+        # self.orb1PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb1_pos")
+        # self.orb2PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb2_pos")
+        # self.orb3PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb3_pos")
+        # self.orb4PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb4_pos")
+        # self.orb5PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb5_pos")
+        # self.orb6PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb6_pos")
+        # self.orb7PosLoc = glGetUniformLocation(self.renderingProgramID, "u_orb7_pos")
 
-        self.orb2PosLoc = glGetUniformLocation(self.renderingProgramID, "orb2.position")
-        self.orb2AmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb2.ambient")
-        self.orb2DiffLoc = glGetUniformLocation(self.renderingProgramID, "orb2.diffuse")
-        self.orb2SpecLoc = glGetUniformLocation(self.renderingProgramID, "orb2.specular")
-        self.orb2Constant = glGetUniformLocation(self.renderingProgramID, "orb2.constant")
-        self.orb2Linear = glGetUniformLocation(self.renderingProgramID, "orb2.linear")
-        self.orb2Quadratic = glGetUniformLocation(self.renderingProgramID, "orb2.quadratic")
+        self.orbPosLoc = []
+        self.orbVisibleLoc = []
+        for num in range(8):
+            self.orbPosLoc.append(glGetUniformLocation(self.renderingProgramID, "u_orb" + str(num + 1) + "_pos"))
+            self.orbVisibleLoc.append(glGetUniformLocation(self.renderingProgramID, "u_orb" + str(num + 1) + "_visible"))
+            
 
-        self.orb3PosLoc = glGetUniformLocation(self.renderingProgramID, "orb3.position")
-        self.orb3AmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb3.ambient")
-        self.orb3DiffLoc = glGetUniformLocation(self.renderingProgramID, "orb3.diffuse")
-        self.orb3SpecLoc = glGetUniformLocation(self.renderingProgramID, "orb3.specular")
-        self.orb3Constant = glGetUniformLocation(self.renderingProgramID, "orb3.constant")
-        self.orb3Linear = glGetUniformLocation(self.renderingProgramID, "orb3.linear")
-        self.orb3Quadratic = glGetUniformLocation(self.renderingProgramID, "orb3.quadratic")
+        # self.orb1VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb1_visible")
+        # self.orb2VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb2_visible")
+        # self.orb3VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb3_visible")
+        # self.orb4VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb4_visible")
+        # self.orb5VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb5_visible")
+        # self.orb6VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb6_visible")
+        # self.orb7VisibleLoc = glGetUniformLocation(self.renderingProgramID, "u_orb7_visible")
 
-        self.orb4PosLoc = glGetUniformLocation(self.renderingProgramID, "orb4.position")
-        self.orb4AmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb4.ambient")
-        self.orb4DiffLoc = glGetUniformLocation(self.renderingProgramID, "orb4.diffuse")
-        self.orb4SpecLoc = glGetUniformLocation(self.renderingProgramID, "orb4.specular")
-        self.orb4Constant = glGetUniformLocation(self.renderingProgramID, "orb4.constant")
-        self.orb4Linear = glGetUniformLocation(self.renderingProgramID, "orb4.linear")
-        self.orb4Quadratic = glGetUniformLocation(self.renderingProgramID, "orb4.quadratic")
-
-        self.orb5PosLoc = glGetUniformLocation(self.renderingProgramID, "orb5.position")
-        self.orb5AmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb5.ambient")
-        self.orb5DiffLoc = glGetUniformLocation(self.renderingProgramID, "orb5.diffuse")
-        self.orb5SpecLoc = glGetUniformLocation(self.renderingProgramID, "orb5.specular")
-        self.orb5Constant = glGetUniformLocation(self.renderingProgramID, "orb5.constant")
-        self.orb5Linear = glGetUniformLocation(self.renderingProgramID, "orb5.linear")
-        self.orb5Quadratic = glGetUniformLocation(self.renderingProgramID, "orb5.quadratic")
+        # self.orbPosLoc = glGetUniformLocation(self.renderingProgramID, "orb.position")
+        self.orbAmbientLoc = glGetUniformLocation(self.renderingProgramID, "orb.ambient")
+        self.orbDiffLoc = glGetUniformLocation(self.renderingProgramID, "orb.diffuse")
+        self.orbSpecLoc = glGetUniformLocation(self.renderingProgramID, "orb.specular")
+        self.orbConstant = glGetUniformLocation(self.renderingProgramID, "orb.constant")
+        self.orbLinear = glGetUniformLocation(self.renderingProgramID, "orb.linear")
+        self.orbQuadratic = glGetUniformLocation(self.renderingProgramID, "orb.quadratic")
 
         self.lightPosLoc = glGetUniformLocation(self.renderingProgramID, "u_light_position")
         self.lightDiffLoc = glGetUniformLocation(self.renderingProgramID, "u_light_diffuse")
@@ -108,10 +99,11 @@ class Shader3D:
         self.diffuseTextureLoc = glGetUniformLocation(self.renderingProgramID, "u_diff_tex")
         # glUniform1f(self.diffuseTextureLoc, GL_TEXTURE0)
         self.specularTextureLoc = glGetUniformLocation(self.renderingProgramID, "u_spec_tex")
-
         self.normalTextureLoc = glGetUniformLocation(self.renderingProgramID, "u_norm_tex")
         # glUniform1f(self.diffuseTextureLoc, GL_TEXTURE1)
-        self.hasTextureLoc = glGetUniformLocation(self.renderingProgramID, "u_has_texture")
+        self.hasDiffLoc = glGetUniformLocation(self.renderingProgramID, "u_has_diffuse")
+        self.hasSpecLoc = glGetUniformLocation(self.renderingProgramID, "u_has_specular")
+        self.hasNormLoc = glGetUniformLocation(self.renderingProgramID, "u_has_normal")
 
 
         # Fog
@@ -119,12 +111,28 @@ class Shader3D:
         self.fogStartLoc = glGetUniformLocation(self.renderingProgramID, "u_fog_start")
         self.fogEndLoc = glGetUniformLocation(self.renderingProgramID, "u_fog_end")
 
+        # self.noOfOrbsLoc = glGetUniformLocation(self.renderingProgramID, "u_no_of_orbs")
+        self.flashPosLoc = glGetUniformLocation(self.renderingProgramID, "u_flash.position")
+        self.flashDirLoc = glGetUniformLocation(self.renderingProgramID, "u_flash.direction")
+        self.flashCOLoc = glGetUniformLocation(self.renderingProgramID, "u_flash.cutoff")
+        self.flashAttenuationLoc = glGetUniformLocation(self.renderingProgramID, "u_flash.attenuation")
+
+        self.opacityLoc = glGetUniformLocation(self.renderingProgramID, "u_opacity")
+
     def use(self):
         try:
             glUseProgram(self.renderingProgramID)   
         except OpenGL.error.GLError:
             print(glGetProgramInfoLog(self.renderingProgramID))
             raise
+
+    def set_flash_light(self, camera, angle, attenuation):
+        glUniform4f(self.flashPosLoc, camera.eye.x, camera.eye.y, camera.eye.z, 1.0)
+        glUniform4f(self.flashDirLoc, camera.n.x, camera.n.y, camera.n.z, 0.0)
+        # print("Rad: ", cos(radians(angle)))
+        glUniform1f(self.flashCOLoc, cos(radians(angle)))
+        glUniform1f(self.flashAttenuationLoc, attenuation)
+        # lightingShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
 
     def set_model_matrix(self, matrix_array):
         # print(matrix_array)
@@ -155,93 +163,70 @@ class Shader3D:
     def set_light_ambient(self, red, green, blue):
         glUniform4f(self.lightAmbientLoc, red, green, blue, 1.0)
 
+    # General orb setters
+    def set_orb_position(self, pos):
+        glUniform4f(self.orbPosLoc, pos.x, pos.y, pos.z, 1.0)
+
+    def set_orb_ambient(self, red, green, blue):
+        glUniform4f(self.orbAmbientLoc, red, green, blue, 1.0)
+
+    def set_orb_diffuse(self, red, green, blue):
+        glUniform4f(self.orbDiffLoc, red, green, blue, 1.0)
+
+    def set_orb_specular(self, red, green, blue):
+        glUniform4f(self.orbSpecLoc, red, green, blue, 1.0)
+
+    def set_orb_attenuation(self, const, lin, quad):
+        glUniform1f(self.orbConstant, const)
+        glUniform1f(self.orbLinear, lin)
+        glUniform1f(self.orbQuadratic, quad)
+
+
+    def set_orb_position(self, orbNum, pos, visible):
+        glUniform4f(self.orbPosLoc[orbNum], pos.x, pos.y, pos.z, 1.0)
+        glUniform1i(self.orbVisibleLoc[orbNum], visible)
     # Orb 1
-    def set_orb_1_position(self, pos):
-        glUniform4f(self.orb1PosLoc, pos.x, pos.y, pos.z, 1.0)
+    # def set_orb_1_position(self, pos, visible):
+    #     glUniform4f(self.orb1PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb1VisibleLoc, visible)
 
-    def set_orb_1_ambient(self, red, green, blue):
-        glUniform4f(self.orb1AmbientLoc, red, green, blue, 1.0)
+    # def set_orb_2_position(self, pos, visible):
+    #     glUniform4f(self.orb2PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb2VisibleLoc, visible)
 
-    def set_orb_1_diffuse(self, red, green, blue):
-        glUniform4f(self.orb1DiffLoc, red, green, blue, 1.0)
+    # def set_orb_3_position(self, pos, visible):
+    #     glUniform4f(self.orb3PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb3VisibleLoc, visible)
 
-    def set_orb_1_specular(self, red, green, blue):
-        glUniform4f(self.orb1SpecLoc, red, green, blue, 1.0)
+    # def set_orb_4_position(self, pos, visible):
+    #     glUniform4f(self.orb4PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb4VisibleLoc, visible)
 
-    def set_orb_1_attenuation(self, const, lin, quad):
-        glUniform1f(self.orb1Constant, const)
-        glUniform1f(self.orb1Linear, lin)
-        glUniform1f(self.orb1Quadratic, quad)
+    # def set_orb_5_position(self, pos, visible):
+    #     glUniform4f(self.orb5PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb5VisibleLoc, visible)
 
-    def set_orb_2_position(self, pos):
-        glUniform4f(self.orb2PosLoc, pos.x, pos.y, pos.z, 1.0)
+    # def set_orb_6_position(self, pos, visible):
+    #     glUniform4f(self.orb6PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb6VisibleLoc, visible)
 
-    def set_orb_2_ambient(self, red, green, blue):
-        glUniform4f(self.orb2AmbientLoc, red, green, blue, 1.0)
+    # def set_orb_7_position(self, pos, visible):
+    #     glUniform4f(self.orb7PosLoc, pos.x, pos.y, pos.z, 1.0)
+    #     glUniform1i(self.orb7VisibleLoc, visible)
 
-    def set_orb_2_diffuse(self, red, green, blue):
-        glUniform4f(self.orb2DiffLoc, red, green, blue, 1.0)
+    def set_orb_ambient(self, red, green, blue):
+        glUniform4f(self.orbAmbientLoc, red, green, blue, 1.0)
 
-    def set_orb_2_specular(self, red, green, blue):
-        glUniform4f(self.orb2SpecLoc, red, green, blue, 1.0)
+    def set_orb_diffuse(self, red, green, blue):
+        glUniform4f(self.orbDiffLoc, red, green, blue, 1.0)
 
-    def set_orb_2_attenuation(self, const, lin, quad):
-        glUniform1f(self.orb2Constant, const)
-        glUniform1f(self.orb2Linear, lin)
-        glUniform1f(self.orb2Quadratic, quad)
+    def set_orb_specular(self, red, green, blue):
+        glUniform4f(self.orbSpecLoc, red, green, blue, 1.0)
 
-    def set_orb_3_position(self, pos):
-        glUniform4f(self.orb3PosLoc, pos.x, pos.y, pos.z, 1.0)
-
-    def set_orb_3_ambient(self, red, green, blue):
-        glUniform4f(self.orb3AmbientLoc, red, green, blue, 1.0)
-
-    def set_orb_3_diffuse(self, red, green, blue):
-        glUniform4f(self.orb3DiffLoc, red, green, blue, 1.0)
-
-    def set_orb_3_specular(self, red, green, blue):
-        glUniform4f(self.orb3SpecLoc, red, green, blue, 1.0)
-
-    def set_orb_3_attenuation(self, const, lin, quad):
-        glUniform1f(self.orb3Constant, const)
-        glUniform1f(self.orb3Linear, lin)
-        glUniform1f(self.orb3Quadratic, quad)
-
-    def set_orb_4_position(self, pos):
-        glUniform4f(self.orb4PosLoc, pos.x, pos.y, pos.z, 1.0)
-
-    def set_orb_4_ambient(self, red, green, blue):
-        glUniform4f(self.orb4AmbientLoc, red, green, blue, 1.0)
-
-    def set_orb_4_diffuse(self, red, green, blue):
-        glUniform4f(self.orb4DiffLoc, red, green, blue, 1.0)
-
-    def set_orb_4_specular(self, red, green, blue):
-        glUniform4f(self.orb4SpecLoc, red, green, blue, 1.0)
-
-    def set_orb_4_attenuation(self, const, lin, quad):
-        glUniform1f(self.orb4Constant, const)
-        glUniform1f(self.orb4Linear, lin)
-        glUniform1f(self.orb4Quadratic, quad)
-
-    def set_orb_5_position(self, pos):
-        glUniform4f(self.orb5PosLoc, pos.x, pos.y, pos.z, 1.0)
-
-    def set_orb_5_ambient(self, red, green, blue):
-        glUniform4f(self.orb5AmbientLoc, red, green, blue, 1.0)
-
-    def set_orb_5_diffuse(self, red, green, blue):
-        glUniform4f(self.orb5DiffLoc, red, green, blue, 1.0)
-
-    def set_orb_5_specular(self, red, green, blue):
-        glUniform4f(self.orb5SpecLoc, red, green, blue, 1.0)
-
-    def set_orb_5_attenuation(self, const, lin, quad):
-        glUniform1f(self.orb5Constant, const)
-        glUniform1f(self.orb5Linear, lin)
-        glUniform1f(self.orb5Quadratic, quad)
-
-
+    def set_orb_attenuation(self, const, lin, quad):
+        glUniform1f(self.orbConstant, const)
+        glUniform1f(self.orbLinear, lin)
+        glUniform1f(self.orbQuadratic, quad)
 
     # Material - Could change and use color base type
     def set_material_ambient(self, color):
@@ -323,8 +308,12 @@ class Shader3D:
     def set_normal_tex(self, number):
         glUniform1i(self.normalTextureLoc, number)
 
-    def set_has_texture(self, val):
-        glUniform1i(self.hasTextureLoc, val)
+
+    # Set textures
+    def set_has_texture(self, diff, spec, norm):
+        glUniform1i(self.hasDiffLoc, diff)
+        glUniform1i(self.hasSpecLoc, spec)
+        glUniform1i(self.hasNormLoc, norm)
 
     # Fog
     def set_fog_color(self, red, green, blue):
@@ -335,3 +324,106 @@ class Shader3D:
 
     def set_fog_end(self, val):
         glUniform1f(self.fogEndLoc, val)
+
+    def set_opacity(self, val):
+        glUniform1f(self.opacityLoc, val)
+
+    # def set_no_of_orbs(self, val):
+    #     glUniform1f(self.noOfOrbsLoc, val)
+
+
+class SkyShader:
+    def __init__(self):
+        vert_shader = glCreateShader(GL_VERTEX_SHADER)
+        shader_file = open(sys.path[0] + "/Shaders/skyShader.vert")
+        glShaderSource(vert_shader,shader_file.read())
+        shader_file.close()
+        glCompileShader(vert_shader)
+        result = glGetShaderiv(vert_shader, GL_COMPILE_STATUS)
+        if (result != 1): # shader didn't compile
+            print("Couldn't compile vertex shader\nShader compilation Log:\n" + str(glGetShaderInfoLog(vert_shader)))
+
+        frag_shader = glCreateShader(GL_FRAGMENT_SHADER)
+        shader_file = open(sys.path[0] + "/Shaders/skyShader.frag")
+        glShaderSource(frag_shader,shader_file.read())
+        shader_file.close()
+        glCompileShader(frag_shader)
+        result = glGetShaderiv(frag_shader, GL_COMPILE_STATUS)
+        if (result != 1): # shader didn't compile
+            print("Couldn't compile fragment shader\nShader compilation Log:\n" + str(glGetShaderInfoLog(frag_shader)))
+
+
+        # Handles to use throughout the code
+        # self.renderingProgramID = the ID of the shader program I am running
+        self.renderingProgramID = glCreateProgram()
+        glAttachShader(self.renderingProgramID, vert_shader)
+        glAttachShader(self.renderingProgramID, frag_shader)
+        glLinkProgram(self.renderingProgramID)
+
+        self.positionLoc = glGetAttribLocation(self.renderingProgramID, "a_position")
+        glEnableVertexAttribArray(self.positionLoc)
+
+        self.normalLoc = glGetAttribLocation(self.renderingProgramID, "a_normal")
+        glEnableVertexAttribArray(self.normalLoc)
+        # UV location
+        self.uvLoc = glGetAttribLocation(self.renderingProgramID, "a_uv")
+        glEnableVertexAttribArray(self.uvLoc)
+
+        self.modelMatrixLoc = glGetUniformLocation(self.renderingProgramID, "u_model_matrix")
+        self.viewMatrixLoc = glGetUniformLocation(self.renderingProgramID, "u_view_matrix")
+        self.projectionMatrixLoc = glGetUniformLocation(self.renderingProgramID, "u_projection_matrix")
+
+
+    #     # Texture 
+        self.diffuseTextureLoc = glGetUniformLocation(self.renderingProgramID, "u_diff_tex")
+        self.opacityLoc = glGetUniformLocation(self.renderingProgramID, "u_opacity")
+
+
+    def use(self):
+        try:
+            glUseProgram(self.renderingProgramID)   
+        except OpenGL.error.GLError:
+            print(glGetProgramInfoLog(self.renderingProgramID))
+            raise
+
+    def set_model_matrix(self, matrix_array):
+        # print(matrix_array)
+        glUniformMatrix4fv(self.modelMatrixLoc, 1, True, matrix_array)
+
+
+    def set_view_matrix(self, matrix_array):
+        glUniformMatrix4fv(self.viewMatrixLoc, 1, True, matrix_array)
+
+    def set_projection_matrix(self, matrix_array):
+        glUniformMatrix4fv(self.projectionMatrixLoc, 1, True, matrix_array)
+
+    # def set_solid_color(self, red, green, blue):
+    #     glUniform4f(self.colorLoc, red, green, blue, 1.0)
+
+    # Currently not used
+    def set_diffuse_texture(self, tex):
+        glUniform1f(self.diffuseTextureLoc, tex)
+
+
+    # Set vertex position and normal - DO NOT USE
+    def set_position_attribute(self, vertex_array):
+        # glUniform1i(self.hasTextureLoc, 1)
+        glVertexAttribPointer(self.positionLoc, 3, GL_FLOAT, False, 0, vertex_array)
+        
+    def set_attribute_buffers_with_uv(self, vertex_buffer_id):
+        # glUniform1i(self.hasTextureLoc, 0)
+        glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id)
+        # x - x - x - x - STRIDES 
+        glVertexAttribPointer(self.positionLoc, 3, GL_FLOAT, False, 8 * sizeof(GLfloat), OpenGL.GLU.ctypes.c_void_p(0))
+        glVertexAttribPointer(self.normalLoc, 3, GL_FLOAT, False, 8 * sizeof(GLfloat), OpenGL.GLU.ctypes.c_void_p(3 * sizeof(GLfloat)))
+        glVertexAttribPointer(self.uvLoc, 2, GL_FLOAT, False, 8 * sizeof(GLfloat), OpenGL.GLU.ctypes.c_void_p(6 * sizeof(GLfloat)))
+
+    # Texture coordinates 
+    def set_uv_attribute(self, vertex_array):
+        glVertexAttribPointer(self.uvLoc, 2, GL_FLOAT, False, 0, vertex_array)
+
+    def set_diffuse_tex(self, number):
+        glUniform1i(self.diffuseTextureLoc, number)
+
+    def set_opacity(self, val):
+        glUniform1f(self.opacityLoc, val)

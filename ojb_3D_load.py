@@ -63,7 +63,7 @@ def load_obj_file(file_location, file_name):
                     current_normal_list = []
                 if current_uv_list == None:
                     current_uv_list = []
-                print(str(1) + " " + str(i+2) + " " + str(i+3))
+                # print(str(1) + " " + str(i+2) + " " + str(i+3))
                 # print(int(tokens[i+3][0]))
                 # print(int(tokens[i+3][2]))
                 # print("size: " + str(len(current_position_list)))
@@ -76,4 +76,6 @@ def load_obj_file(file_location, file_name):
     # All models, vertices, and materials have been added to mesh_model, so set buffers
     mesh_model.set_opengl_buffers()
     print("Finished loading OBJ: " + file_name)
+    # print("vertex arr:", mesh_model.vertex_arrays[current_object_id])
+    # print("mesh materials: ", mesh_model.materials['Material'])
     return mesh_model
